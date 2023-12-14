@@ -1,0 +1,19 @@
+[
+    {
+        "name":"linan",
+        "age":"15",
+        "sex":"man"
+    },
+    
+    {
+        "name":"wangzhiqiang",
+        "age":"25",
+        "sex":"woman"
+    },
+
+    {
+        "name":"yangjunjie",
+        "age":"35",
+        "sex":"man"
+    }
+]

@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="https://mp-626c1475-9454-4b28-bba0-54f2cc7c0561.cdn.bspapp.com/饭团.png">
+    <link rel="stylesheet" href="./mycss1.css">
+    <link rel="stylesheet" href="./input.css">
+    <link href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet">
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/vue/2.2.2/vue.min.js"></script>
+    <link rel="stylesheet" href="./deep learning.css">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="search">
+        <div class="input-container">
+            <input placeholder="Please enter what you would like to inquire about..." class="input-field" type="text">
+            <label for="input-field" class="input-label">Enter text</label>
+            <span class="input-highlight"></span>
+        </div>
+
+    </div>
+    <div class="shell" id="shell">
+        <div class="header">
+            <h2 class="title">Welcome to deep learning</h2>
+            <h3 class="subtitle">BILIBILI</h3>
+        </div>
+        <div class="timeline">
+
+            <div class="item" data-text="Unet">
+                <div class="content">
+                    <img class="img" src="https://mp-626c1475-9454-4b28-bba0-54f2cc7c0561.cdn.bspapp.com/deep12.png" />
+                    <h2 class="content-title">Twelve</h2>
+                    <p class="content-desc">
+                        Unet 网络结构是对称的，形似英文字母 U 所以被称为 Unet。整张图都是由蓝/白色框与各种颜色的箭头组成，其中，蓝/白色框表示 feature map；蓝色箭头表示 3x3
+                        卷积，用于特征提取；灰色箭头表示 skip-connection，用于特征融合；红色箭头表示池化 pooling，用于降低维度；绿色箭头表示上采样 upsample，用于恢复维度；青色箭头表示
+                        1x1 卷积，用于输出结果
+                    </p>
+                </div>
+            </div>
+
+            <div class="item" data-text="卷积层">
+                <div class="content">
+                    <img class="img" src="https://mp-626c1475-9454-4b28-bba0-54f2cc7c0561.cdn.bspapp.com/deep.png" />
+                    <h2 class="content-title">One</h2>
+                    <p class="content-desc">
+                        先对g函数进行翻转，相当于在数轴上把g函数从右边褶到左边去，也就是卷积的“卷”的由来，然后再把g函数平移到n，在这个位置对两个函数的对应点相乘，然后相加，这个过程是卷积的“积”的过程。
+                    </p>
+                </div>
+            </div>
+
+            <div class="item" data-text="池化层">
+                <div class="content">
+                    <img class="img" src="https://mp-626c1475-9454-4b28-bba0-54f2cc7c0561.cdn.bspapp.com/deep2.png" />
+                    <h2 class="content-title">Two</h2>
+                    <p class="content-desc">
+                        池化 (Pooling) 用来降低卷积神经网络（CNN）或循环神经网络（RNN）中的特征图（Feature Map）的维度。
+                        在卷积神经网络中，池化操作通常紧跟在卷积操作之后，用于降低特征图的空间大小。 池化操作的基本思想是将特征图划分为若干个子区域（一般为矩形），并对每个子区域进行统计汇总
+                    </p>
+                </div>
+            </div>
+
+            <div class="item" data-text="线性层">
+                <div class="content">
+                    <img class="img" src="https://mp-626c1475-9454-4b28-bba0-54f2cc7c0561.cdn.bspapp.com/deep3.png" />
+                    <h2 class="content-title">Three</h2>
+                    <p class="content-desc">
+                        线性层：线性层又称为全连接层,其每个神经元与上一个层所有神经元相连,作用是实现对前一层的线性组合或线性变换。
+                        全连接层，是每一个结点都与上一层的所有结点相连，用来把前边提取到的特征综合起来。 由于其全相连的特性，一般全连接层的参数也是最多的
+                    </p>
+                </div>
+            </div>
+
+            <div class="item" data-text="激活函数">
+                <div class="content">
+                    <img class="img" src="https://mp-626c1475-9454-4b28-bba0-54f2cc7c0561.cdn.bspapp.com/deep4.png" />
+                    <h2 class="content-title">four</h2>
+                    <p class="content-desc">
+                        激活函数（Activation
+                        Function）是一种添加到人工神经网络中的函数，旨在帮助网络学习数据中的复杂模式。在神经元中，输入的input经过一系列加权求和后作用于另一个函数，这个函数就是这里的激活函数。
+                    </p>
+                </div>
+            </div>
+
+            <div class="item" data-text="loss function">
+                <div class="content">
+                    <img class="img" src="https://mp-626c1475-9454-4b28-bba0-54f2cc7c0561.cdn.bspapp.com/deep5.jpg" />
+                    <h2 class="content-title">five</h2>
+                    <p class="content-desc">
+                        一言以蔽之，损失函数（loss function）就是用来度量模型的预测值f(x)与真实值Y的差异程度的运算函数，它是一个非负实值函数，通常使用L(Y,
+                        f(x))来表示，损失函数越小，模型的鲁棒性就越好。
+                    </p>
+                </div>
+            </div>
+
+            <div class="item" data-text="优化函数">
+                <div class="content">
+                    <img class="img" src="https://mp-626c1475-9454-4b28-bba0-54f2cc7c0561.cdn.bspapp.com/deep6.png" />
+                    <h2 class="content-title">six</h2>
+                    <p class="content-desc">
+                        优化函数（Optimization
+                        Function）是用于训练机器学习模型的算法，用于调整模型的参数以最小化（或最大化）一个定义良好的目标函数——损失函数或成本函数（Loss/Cost Function）。
+                    </p>
+                </div>
+            </div>
+
+            <div class="item" data-text="梯度">
+                <div class="content">
+                    <img class="img" src="https://mp-626c1475-9454-4b28-bba0-54f2cc7c0561.cdn.bspapp.com/deep7.png" />
+                    <h2 class="content-title">seven</h2>
+                    <p class="content-desc">
+                        在空间的每一个点都可以确定无限多个方向，一个多元函数在某个点也必然有无限多个方向。因此，导数在这无限多个方向导数中最大的一个（它直接反映了函数在这个点的变化率的数量级）等于多少？它是沿什么方向达到的？描述这个最大方向导数及其所沿方向的矢量，就是我们所说的梯度。
+                    </p>
+                </div>
+            </div>
+
+            <div class="item" data-text="注意力机制">
+                <div class="content">
+                    <img class="img" src="https://mp-626c1475-9454-4b28-bba0-54f2cc7c0561.cdn.bspapp.com/deep8.jpg" />
+                    <h2 class="content-title">eight</h2>
+                    <p class="content-desc">
+                        深度学习中的注意力机制（Attention
+                        Mechanism）是一种模仿人类视觉和认知系统的方法，它允许神经网络在处理输入数据时集中注意力于相关的部分。通过引入注意力机制，神经网络能够自动地学习并选择性地关注输入中的重要信息，提高模型的性能和泛化能力。
+                    </p>
+                </div>
+            </div>
+            <!--         
+                    <div class="item" data-text="cnn">
+                        <div class="content">
+                            <img class="img" src="https://mp-626c1475-9454-4b28-bba0-54f2cc7c0561.cdn.bspapp.com/deep9.jpg" />
+                            <h2 class="content-title">night</h2>
+                            <p class="content-desc">
+                        
+                    </div> -->
+
+            <div class="item" data-text="rnn">
+                <div class="content">
+                    <img class="img" src="https://mp-626c1475-9454-4b28-bba0-54f2cc7c0561.cdn.bspapp.com/deep10.jpg" />
+                    <h2 class="content-title">night</h2>
+                    <p class="content-desc">
+                        循环神经网络（Recurrent Neural Network,
+                        RNN）是一类以序列（sequence）数据为输入，在序列的演进方向进行递归（recursion）且所有节点（循环单元）按链式连接的递归神经网络（recursive
+                        neural network
+                    </p>
+                </div>
+            </div>
+
+
+            <!--  -->
+            <div class="item" data-text="cnn">
+                <div class="content">
+                    <img class="img" src="https://mp-626c1475-9454-4b28-bba0-54f2cc7c0561.cdn.bspapp.com/deep9.jpg" />
+                    <h2 class="content-title">ten</h2>
+                    <p class="content-desc">
+                        卷积神经网络（Convolutional Neural
+                        Networks，简称CNN）是一种具有局部连接、权值共享等特点的深层前馈神经网络，是深度学习的代表算法之一，擅长处理图像特别是图像识别等相关机器学习问题，比如图像分类、目标检测、图像分割等各种视觉任务中都有显著的提升效果，是目前应用最广泛的模型之一。
+
+                    </p>
+                </div>
+            </div>
+
+            <div class="item" data-text="VNet">
+                <div class="content">
+                    <img class="img" src="https://mp-626c1475-9454-4b28-bba0-54f2cc7c0561.cdn.bspapp.com/deep10.jpg" />
+                    <h2 class="content-title">Eleven</h2>
+                    <p class="content-desc">
+                        引入残差，水平向的残差连接采用element-wise:卷积层代替上采样和下采样的池化层。
+                        ment-wise:卷积层代替上采样和下采样的池化层。
+                    </p>
+                </div>
+            </div>
+
+            
+
+            <div class="item" data-text="Swin-Unet">
+                <div class="content">
+                    <img class="img" src="https://mp-626c1475-9454-4b28-bba0-54f2cc7c0561.cdn.bspapp.com/deep13.png" />
+                    <h2 class="content-title">Thirteen</h2>
+                    <p class="content-desc">
+                        在本文中，我们提出了Swin-Unet，它是用于医学图像分割的类似Unet的纯Transformer。标记化的图像块通过跳跃连接被馈送到基于Transformer的U形En-Decoder架构中，以进行局部全局语义特征学习。
+                    </p>
+                </div>
+            </div>
+
+            <div class="item" data-text="UNet++">
+                <div class="content">
+                    <img class="img" src="https://mp-626c1475-9454-4b28-bba0-54f2cc7c0561.cdn.bspapp.com/deep14.png" />
+                    <h2 class="content-title">Fourteen</h2>
+                    <p class="content-desc">
+                        这个综合长连接和短连接的架构就是UNet++。
+                        UNet++的优势是可以抓取不同层次的特征,将它们通过特征叠加的方式整合，加入更浅的U-Net结构，使得融合时的特征图尺度差异更小。
+                        UNet++同时也引进了很多参数，占用内存也变大
+                    </p>
+                </div>
+            </div>
+
+            <div class="item" data-text="3D-Unet">
+                <div class="content">
+                    <img class="img" src="https://mp-626c1475-9454-4b28-bba0-54f2cc7c0561.cdn.bspapp.com/deep15.png" />
+                    <h2 class="content-title">Fifteen</h2>
+                    <p class="content-desc">
+                        在一些计算机视觉应用领域，例如医学影像中的磁共振图像、CT等，其图像不是2D的，而是3D的（体积图）。在pytorch中2D图像用shape为[C,H,W]的tensor储存，而是3D图像用shape为[L,C,H,W]的tensor储存，其中L，C，H，W分别为3D图像的厚度、每个slice的通道数（彩色为3，灰度图为1）、高度、宽度。3D
+                        U-net说简单一点就是将原始U-net中所有的2D操作替换为3D操作，以此来实现体积分割。
+                    </p>
+                </div>
+            </div>
+
+            <div class="item" data-text="Vgg">
+                <div class="content">
+                    <a href="./deep learning/VGG.html">
+                        <img class="img"
+                            src="https://mp-626c1475-9454-4b28-bba0-54f2cc7c0561.cdn.bspapp.com/deep16.png" />
+
+                    </a>
+                    <h2 class="content-title">Sixteen</h2>
+                    <p class="content-desc">
+                        人生，就像肥皂泡一样。风一吹就呼呼的飞上了天，注意到的时候，却啪地一下消失了。就在即将破裂的瞬间，想要自己飞得更高。但回过神来的时候，却总是来不及。
+                    </p>
+                </div>
+            </div>
+
+            <div class="item" data-text="transformer">
+                <div class="content">
+                    <img class="img" src="https://mp-626c1475-9454-4b28-bba0-54f2cc7c0561.cdn.bspapp.com/deep17.png" />
+                    <h2 class="content-title">Seventeen</h2>
+                    <p class="content-desc">
+                        Transformer是一个利用注意力机制来提高模型训练速度的模型。关于注意力机制可以参看这篇文章，trasnformer可以说是完全基于自注意力机制的一个深度学习模型，因为它适用于并行化计算，和它本身模型的复杂程度导致它在精度和性能上都要高于之前流行的RNN循环神经网
+                    </p>
+                </div>
+            </div>
+
+            <div class="item" data-text="NLP">
+                <div class="content">
+                    <img class="img" src="https://mp-626c1475-9454-4b28-bba0-54f2cc7c0561.cdn.bspapp.com/deep18.jpg" />
+                    <h2 class="content-title">Eighteen</h2>
+                    <p class="content-desc">
+                        NLP（Natural Language Processing），也就是人们常说的「自然语言处理」，就是研究如何让计算机读懂人类语言，即将人的自然语言转换为计算机可以阅读的指令。
+                    </p>
+                </div>
+            </div>
+
+            <div class="item" data-text="self-attention">
+                <div class="content">
+                    <img class="img" src="https://mp-626c1475-9454-4b28-bba0-54f2cc7c0561.cdn.bspapp.com/deep19.png" />
+                    <h2 class="content-title">Nineteen</h2>
+                    <p class="content-desc">
+                        自注意力机制（Self-Attention
+                        Mechanism）是一种注意力机制的变体，用于计算输入序列中各个元素之间的相互关系。在自然语言处理和深度学习领域，自注意力机制被广泛应用于各种任务，如机器翻译、文本摘要和语言建模等。
+                        自注意力机制的核心思想是通过对输入序列中的每个元素进行加权组合，来计算该元素与其他元素的相关性。与传统的注意力机制不同，自注意力机制不需要依赖于外部的查询（query）和键值对（key-value
+                        pairs），而是直接将输入序列的不同位置作为查询、键和值。
+                    </p>
+                </div>
+            </div>
+
+            <div class="item" data-text="Multi-Head Attention">
+                <div class="content">
+                    <img class="img" src="https://mp-626c1475-9454-4b28-bba0-54f2cc7c0561.cdn.bspapp.com/deep20.png" />
+                    <h2 class="content-title">Twenty</h2>
+                    <p class="content-desc">
+                        多头注意力机制（Multi-head Attention
+                        Mechanism）是一种在自然语言处理和深度学习领域常用的技术，用于提取输入序列中的相关信息。在深度学习中，注意力机制可以用来计算输入序列中每个元素对于特定任务的重要性或权重。
+                        在传统的注意力机制中，只使用了单个注意头（attention
+                        head）来计算注意力权重。而多头注意力机制通过引入多个注意头，允许模型在不同的表示子空间中学习不同的注意力权重。每个注意头都相当于一个独立的注意力机制，可以关注序列中不同的语义特征
+                    </p>
+                </div>
+            </div>
+
+            <div class="item" data-text="ResNet">
+                <div class="content">
+                    <img class="img" src="https://mp-626c1475-9454-4b28-bba0-54f2cc7c0561.cdn.bspapp.com/deep21.png" />
+                    <h2 class="content-title">Twenty One</h2>
+                    <p class="content-desc">
+                        ResNet（Residual Neural Network）是一种深度卷积神经网络架构，旨在解决深度神经网络中的梯度消失和梯度爆炸等问题。它由微软研究院的Kaiming
+                        He等人于2015年提出，并在ImageNet图像分类挑战赛中取得了显著的成果。
+                        ResNet的基本模块是残差块（residual
+                        block），每个残差块由两个或三个卷积层组成。在每个残差块中，输入通过两个卷积层，并通过残差连接与输出相加，然后再通过激活函数进行激活。这种设计允许网络在学习过程中选择性地学习输入的细节和残差部分，从而更好地捕捉图像中的特征
+                    </p>
+                </div>
+            </div>
+            <div class="item" data-text="K折交叉验证">
+                <div class="content">
+                    <a href="./deep learning/K折交叉.html">
+                        <img class="img"
+                            src="https://mp-626c1475-9454-4b28-bba0-54f2cc7c0561.cdn.bspapp.com/deep21.png" />
+                    </a>
+                    <h2 class="content-title">Twenty two</h2>
+                    <p class="content-desc">
+                        K折交叉验证（K-Fold
+                        Cross-Validation）是机器学习中常用的一种模型评估方法，用于评估模型的性能和泛化能力。它的工作原理是将原始数据集分成K个相似大小的子集，其中一个子集被保留作为验证模型的测试集，而其余的K-1个子集被用来训练模型。这个过程重复K次（K折），每次选择不同的子集作为测试集，最后得到K个模型性能评估的结果。通常，这K个评估结果被平均以获得最终性能指标。
+                    </p>
+                </div>
+            </div>
+            <div class="item" data-text="Googlenet">
+                <div class="content">
+                    <a href="./deep learning/Goolglenet.html">
+                        <img class="img"
+                            src="https://mp-626c1475-9454-4b28-bba0-54f2cc7c0561.cdn.bspapp.com/deep21.png" />
+                    </a>
+                    <h2 class="content-title">Twenty three</h2>
+                    <p class="content-desc">
+                        K折交叉验证（K-Fold
+                        Cross-Validation）是机器学习中常用的一种模型评估方法，用于评估模型的性能和泛化能力。它的工作原理是将原始数据集分成K个相似大小的子集，其中一个子集被保留作为验证模型的测试集，而其余的K-1个子集被用来训练模型。这个过程重复K次（K折），每次选择不同的子集作为测试集，最后得到K个模型性能评估的结果。通常，这K个评估结果被平均以获得最终性能指标。
+                    </p>
+                </div>
+            </div>
+            <div class="item" data-text="embedding">
+                <div class="content">
+                    <a href="./deep learning/Goolglenet.html">
+                        <img class="img"
+                            src="https://mp-626c1475-9454-4b28-bba0-54f2cc7c0561.cdn.bspapp.com/deep21.png" />
+                    </a>
+                    <h2 class="content-title">Twenty three</h2>
+                    <p class="content-desc">
+                        K折交叉验证（K-Fold
+                        Cross-Validation）是机器学习中常用的一种模型评估方法，用于评估模型的性能和泛化能力。它的工作原理是将原始数据集分成K个相似大小的子集，其中一个子集被保留作为验证模型的测试集，而其余的K-1个子集被用来训练模型。这个过程重复K次（K折），每次选择不同的子集作为测试集，最后得到K个模型性能评估的结果。通常，这K个评估结果被平均以获得最终性能指标。
+                    </p>
+                </div>
+            </div>
+            <div class="item" data-text="Shufflennet">
+                <div class="content">
+                    <a href="./deep learning/Goolglenet.html">
+                        <img class="img"
+                            src="https://mp-626c1475-9454-4b28-bba0-54f2cc7c0561.cdn.bspapp.com/deep21.png" />
+                    </a>
+                    <h2 class="content-title">Twenty three</h2>
+                    <p class="content-desc">
+                        K折交叉验证（K-Fold
+                        Cross-Validation）是机器学习中常用的一种模型评估方法，用于评估模型的性能和泛化能力。它的工作原理是将原始数据集分成K个相似大小的子集，其中一个子集被保留作为验证模型的测试集，而其余的K-1个子集被用来训练模型。这个过程重复K次（K折），每次选择不同的子集作为测试集，最后得到K个模型性能评估的结果。通常，这K个评估结果被平均以获得最终性能指标。
+                    </p>
+                </div>
+            </div>
+            <div class="item" data-text="轻量级神经网络">
+                <div class="content">
+                    <a href="./deep learning/Goolglenet.html">
+                        <img class="img"
+                            src="https://mp-626c1475-9454-4b28-bba0-54f2cc7c0561.cdn.bspapp.com/deep21.png" />
+                    </a>
+                    <h2 class="content-title">Twenty three</h2>
+                    <p class="content-desc">
+                        K折交叉验证（K-Fold
+                        Cross-Validation）是机器学习中常用的一种模型评估方法，用于评估模型的性能和泛化能力。它的工作原理是将原始数据集分成K个相似大小的子集，其中一个子集被保留作为验证模型的测试集，而其余的K-1个子集被用来训练模型。这个过程重复K次（K折），每次选择不同的子集作为测试集，最后得到K个模型性能评估的结果。通常，这K个评估结果被平均以获得最终性能指标。
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script>
+        (function ($) {
+            $.fn.timeline = function () {
+                var selectors = {
+                    id: $(this),
+                    item: $(this).find(".item"),
+                    activeClass: "item--active",
+                    img: ".img"
+                };
+                // 将第一个时间轴项目激活，并设置时间轴背景图片为第一个项目的图片
+                selectors.item.eq(0).addClass(selectors.activeClass);
+                selectors.id.css(
+                    "background-image",
+                    "url(" +
+                    selectors.item
+                        .first()
+                        .find(selectors.img)
+                        .attr("src") +
+                    ")"
+                );
+                // 获取时间轴项目的总数
+                var itemLength = selectors.item.length;
+                // 当页面滚动时，触发滚动事件
+                $(window).scroll(function () {
+                    var max, min;
+                    // 获取页面滚动的距离
+                    var pos = $(this).scrollTop();
+                    selectors.item.each(function (i) {
+                        // 获取当前时间轴项目的最小和最大高度
+                        min = $(this).offset().top;
+                        max = $(this).height() + $(this).offset().top;
+                        var that = $(this);
+                        // 如果滚动到最后一个项目，并且超过了当前项目高度的一半，
+                        // 则将最后一个项目设置为激活状态，并设置背景图片为最后一个项目的图片
+                        if (i == itemLength - 2 && pos > min + $(this).height() / 2) {
+                            selectors.item.removeClass(selectors.activeClass);
+                            selectors.id.css(
+                                "background-image",
+                                "url(" +
+                                selectors.item
+                                    .last()
+                                    .find(selectors.img)
+                                    .attr("src") +
+                                ")"
+                            );
+                            selectors.item.last().addClass(selectors.activeClass);
+                        }
+                        // 如果当前滚动位置在当前项目的最小和最大高度之间，
+                        // 则将当前项目设置为激活状态，并设置背景图片为当前项目的图片
+                        else if (pos <= max - 10 && pos >= min) {
+                            selectors.id.css(
+                                "background-image",
+                                "url(" +
+                                $(this)
+                                    .find(selectors.img)
+                                    .attr("src") +
+                                ")"
+                            );
+                            selectors.item.removeClass(selectors.activeClass);
+                            $(this).addClass(selectors.activeClass);
+                        }
+                    });
+                });
+            };
+        })(jQuery)
+        /*
+        最后，我们调用 timeline 插件并传入时间轴的 ID 作为参数。
+        这将启用时间轴插件并为该时间轴绑定滚动事件。
+        */
+        $("#shell").timeline();
+
+    </script>
+    </div>
+</body>
+
+</html>

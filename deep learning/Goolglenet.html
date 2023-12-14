@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Googlenet</title>
+    <link rel="stylesheet" href="./main.css">
+</head>
+
+<body>
+    <div class="contain">
+        <div class="one">
+            <p class="title">Googlenet</p>
+            <p class="essay">
+            <h3>什么是Inception：</h3>
+            Inception就是把多个卷积或池化操作，放在一起组装成一个网络模块，设计神经网络时以模块为单位去组装整个网络结构。<br><br>
+            在未使用这种方式的网络里，我们一层往往只使用一种操作，比如卷积或者池化，而且卷积操作的卷积核尺寸也是固定大小的。但是，在实际情况下，在不同尺度的图片里，需要不同大小的卷积核，这样才能使性能最好，或者或，对于同一张图片，不同尺寸的卷积核的表现效果是不一样的，因为他们的感受野不同。所以，我们希望让网络自己去选择，Inception便能够满足这样的需求，一个Inception模块中并列提供多种卷积核的操作，网络在训练的过程中通过调节参数自己去选择使用，同时，由于网络中都需要池化操作，所以此处也把池化层并列加入网络中。<br>
+
+            <h3> 为什么要提出Inception</h3>
+            一般来说，提升网络性能最直接的办法就是增加网络深度和宽度，但一味地增加，会带来诸多问题：<br>
+            1）参数太多，如果训练数据集有限，很容易产生过拟合；<br>
+            2）网络越大、参数越多，计算复杂度越大，难以应用；<br>
+            3）网络越深，容易出现梯度弥散问题（梯度越往后穿越容易消失），难以优化模型。
+            我们希望在增加网络深度和宽度的同时减少参数，为了减少参数，自然就想到将全连接变成稀疏连接。但是在实现上，全连接变成稀疏连接后实际计算量并不会有质的提升，因为大部分硬件是针对密集矩阵计算优化的，稀疏矩阵虽然数据量少，但是计算所消耗的时间却很难减少。在这种需求和形势下，Google研究人员提出了Inception的方法。
+
+            </p>
+            <!-- 概念&发展 -->
+        </div>
+        <div class="imageX" style="width: 900px;">
+            <div style="height: 3600px;width: 100%;background-color: rgb(127, 253, 255);">
+                <img src="https://mp-626c1475-9454-4b28-bba0-54f2cc7c0561.cdn.bspapp.com/Net/Googlenet2.jpg" alt=""
+                    style="width: 100%;height: 100%;overflow-y: scroll;">
+            </div>
+        </div>
+        <div class="imageX">
+            <img src="https://mp-626c1475-9454-4b28-bba0-54f2cc7c0561.cdn.bspapp.com/Net/googlenet.png" alt="">
+        </div>
+        <div class="two">
+            <h3>改进：</h3>
+            1）GoogLeNet采用了模块化的结构（Inception结构），方便增添和修改；<br>
+            2）网络最后采用了average pooling（平均池化）来代替全连接层，该想法来自NIN（Network in Network），事实证明这样可以将准确率提高0.6%。<br>
+            3）虽然移除了全连接，但是网络中依然使用了Dropout ;<br>
+            4）为了避免梯度消失，网络额外增加了2个辅助的softmax用于向前传导梯度（辅助分类器）<br>
+            <h3>辅助分类器：</h3>
+            这里的辅助分类器只是在训练时使用，在正常预测时会被去掉。辅助分类器促进了更稳定的学习和更好的收敛，往往在接近训练结束时，辅助分支网络开始超越没有任何分支的网络的准确性，达到了更高的水平。<br>
+
+            <!-- 优点 -->
+        </div>
+
+        <div class="three">
+            <div class="code_block">
+                # 类BasicConv2d，包括conv+relu
+class BasicConv2d(nn.Module):
+    def __init__(self, in_channels, out_channels, **kwargs):
+        super(BasicConv2d, self).__init__()
+        self.conv = nn.Conv2d(in_channels, out_channels, **kwargs)
+        self.relu = nn.ReLU(inplace=True)
+
+    def forward(self, x):
+        x = self.conv(x)
+        x = self.relu(x)
+        return x
+            </div>
+            <div class="code_block">
+                # 辅助分类器：类InceptionAux，包括avepool+conv+fc1+fc2
+class InceptionAux(nn.Module):
+    def __init__(self, in_channels, num_classes):
+        super(InceptionAux, self).__init__()
+        self.averagePool = nn.AvgPool2d(kernel_size=5, stride=3)
+        self.conv = BasicConv2d(in_channels, 128, kernel_size=1)  # output[batch, 128, 4, 4]
+        self.fc1 = nn.Linear(2048, 1024)
+        self.fc2 = nn.Linear(1024, num_classes)
+
+    def forward(self, x):
+                                 # aux1: N x 512 x 14 x 14, aux2: N x 528 x 14 x 14
+        x = self.averagePool(x)  # aux1: N x 512 x 4 x 4, aux2: N x 528 x 4 x 4
+        x = self.conv(x)         # N x 128 x 4 x 4
+        x = torch.flatten(x, 1)
+        x = F.dropout(x, 0.5, training=self.training)  # N x 2048
+        x = F.relu(self.fc1(x), inplace=True)
+        x = F.dropout(x, 0.5, training=self.training)  # N x 1024
+        x = self.fc2(x)  # N x num_classes
+        return x
+            </div>
+            <div class="code_block">
+                # 类Inception，有四个分支
+class Inception(nn.Module):
+    def __init__(self, in_channels, ch1x1, ch3x3red, ch3x3, ch5x5red, ch5x5, pool_proj):
+        super(Inception, self).__init__()
+
+        self.branch1 = BasicConv2d(in_channels, ch1x1, kernel_size=1)
+
+        self.branch2 = nn.Sequential(
+            BasicConv2d(in_channels, ch3x3red, kernel_size=1),
+            BasicConv2d(ch3x3red, ch3x3, kernel_size=3, padding=1)   # 保证输出大小等于输入大小
+        )
+
+        self.branch3 = nn.Sequential(
+            BasicConv2d(in_channels, ch5x5red, kernel_size=1),
+            BasicConv2d(ch5x5red, ch5x5, kernel_size=5, padding=2)   # 保证输出大小等于输入大小
+        )
+
+        self.branch4 = nn.Sequential(
+            nn.MaxPool2d(kernel_size=3, stride=1, padding=1),
+            BasicConv2d(in_channels, pool_proj, kernel_size=1)
+        )
+
+    def forward(self, x):
+        branch1 = self.branch1(x)
+        branch2 = self.branch2(x)
+        branch3 = self.branch3(x)
+        branch4 = self.branch4(x)
+        # 四个分支连接起来
+        outputs = [branch1, branch2, branch3, branch4]
+        return torch.cat(outputs, 1)
+
+
+            </div>
+            <div class="code_block">
+                开始定义Googlenet的主体函数：
+class GoogLeNet(nn.Module):
+    def __init__(self, num_classes=1000, aux_logits=True, init_weights=False):
+        super(GoogLeNet, self).__init__()
+        self.aux_logits = aux_logits
+
+        self.conv1 = BasicConv2d(3, 64, kernel_size=7, stride=2, padding=3)  # BasicConv2d类
+        self.maxpool1 = nn.MaxPool2d(3, stride=2, ceil_mode=True)
+
+        self.conv2 = BasicConv2d(64, 64, kernel_size=1)
+        self.conv3 = BasicConv2d(64, 192, kernel_size=3, padding=1)
+        self.maxpool2 = nn.MaxPool2d(3, stride=2, ceil_mode=True)
+
+        self.inception3a = Inception(192, 64, 96, 128, 16, 32, 32)           # Inception类
+        self.inception3b = Inception(256, 128, 128, 192, 32, 96, 64)
+        self.maxpool3 = nn.MaxPool2d(3, stride=2, ceil_mode=True)
+
+        self.inception4a = Inception(480, 192, 96, 208, 16, 48, 64)
+        self.inception4b = Inception(512, 160, 112, 224, 24, 64, 64)
+        self.inception4c = Inception(512, 128, 128, 256, 24, 64, 64)
+        self.inception4d = Inception(512, 112, 144, 288, 32, 64, 64)
+        self.inception4e = Inception(528, 256, 160, 320, 32, 128, 128)
+        self.maxpool4 = nn.MaxPool2d(3, stride=2, ceil_mode=True)
+
+        self.inception5a = Inception(832, 256, 160, 320, 32, 128, 128)
+        self.inception5b = Inception(832, 384, 192, 384, 48, 128, 128)
+
+        if self.aux_logits:
+            self.aux1 = InceptionAux(512, num_classes)                      # InceptionAux类
+            self.aux2 = InceptionAux(528, num_classes)
+
+        self.avgpool = nn.AdaptiveAvgPool2d((1, 1))
+        self.dropout = nn.Dropout(0.4)
+        self.fc = nn.Linear(1024, num_classes)
+        if init_weights:
+            self._initialize_weights()
+
+    # 正向传播
+    def forward(self, x):
+                             # N x 3 x 224 x 224
+        x = self.conv1(x)    # N x 64 x 112 x 112
+        x = self.maxpool1(x) # N x 64 x 56 x 56
+
+        x = self.conv2(x)    # N x 64 x 56 x 56
+        x = self.conv3(x)    # N x 192 x 56 x 56
+        x = self.maxpool2(x) # N x 192 x 28 x 28 
+
+        x = self.inception3a(x)  # N x 256 x 28 x 28
+        x = self.inception3b(x)  # N x 480 x 28 x 28
+        x = self.maxpool3(x)     # N x 480 x 14 x 14
+
+        x = self.inception4a(x)  # N x 512 x 14 x 14
+        if self.training and self.aux_logits:  # eval model不执行该部分
+            aux1 = self.aux1(x)
+        x = self.inception4b(x)  # N x 512 x 14 x 14
+        x = self.inception4c(x)  # N x 512 x 14 x 14
+        x = self.inception4d(x)  # N x 528 x 14 x 14
+        if self.training and self.aux_logits:  # eval model不执行该部分
+            aux2 = self.aux2(x)
+        x = self.inception4e(x)  # N x 832 x 14 x 14
+        x = self.maxpool4(x)     # N x 832 x 7 x 7
+        
+        x = self.inception5a(x)  # N x 832 x 7 x 7
+        x = self.inception5b(x)  # N x 1024 x 7 x 7
+        
+        x = self.avgpool(x)      # N x 1024 x 1 x 1
+        x = torch.flatten(x, 1)  # N x 1024
+        x = self.dropout(x)
+        x = self.fc(x)           # N x 1000 (num_classes)   
+
+        if self.training and self.aux_logits:  # eval model不执行该部分
+            return x, aux2, aux1
+        return x
+
+    # 初始化权重
+    def _initialize_weights(self):
+        for m in self.modules():
+            if isinstance(m, nn.Conv2d):
+                nn.init.kaiming_normal_(m.weight, mode='fan_out', nonlinearity='relu')
+                if m.bias is not None:
+                    nn.init.constant_(m.bias, 0)
+            elif isinstance(m, nn.Linear):
+                nn.init.normal_(m.weight, 0, 0.01)
+                nn.init.constant_(m.bias, 0)
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

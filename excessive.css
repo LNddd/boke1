@@ -1,0 +1,11 @@
+.excessive1{
+    width: 99.25%;
+    background-color: aquamarine;
+    height: 70px;
+    border-style: solid;
+    border-width:6px ;
+    background-image: url("https://mp-626c1475-9454-4b28-bba0-54f2cc7c0561.cdn.bspapp.com/科技背景page2.jpg");
+    background-attachment: fixed;
+    background-size: 100% 100%;
+    position: relative;
+}
